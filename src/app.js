@@ -441,7 +441,7 @@ async function requestFunds() {
 }
 
 // Relayer service URL - this should match the value in .env
-const RELAYER_SERVICE_URL = "http://relayer.vault777.io";
+const RELAYER_SERVICE_URL = "https://relayer.vault777.io";
 
 // Request funds via the relayer (meta-transaction)
 async function requestViaRelayer() {

@@ -32,7 +32,8 @@ async function main() {
   // Get the signer (relayer account)
   const [relayer] = await hre.ethers.getSigners();
   const relayerAddr = await relayer.getAddress();
-  console.log(`Relayer address: ${relayerAddr}`);
+  console.log(`Relayer signer address: ${relayerAddr}`);
+  console.log(`Relayer contract address: ${relayerAddress}`);
 
   // Get the relayer's balance
   const balance = await hre.ethers.provider.getBalance(relayerAddr);

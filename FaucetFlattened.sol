@@ -237,7 +237,7 @@ contract Faucet is Ownable {
     uint256 public ethAmount = 0.1 ether;
     
     // Amount of tokens to dispense
-    uint256 public tokenAmount = 100 * 10**18; // 100 777 with 18 decimals
+    uint256 public tokenAmount = 10000 * 10**18; // 10000 777 with 18 decimals
     
     // Cooldown period in seconds
     uint256 public cooldownPeriod = 24 hours;

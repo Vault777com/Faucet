@@ -18,7 +18,9 @@ module.exports = {
     artifacts: "./src/artifacts",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      arbitrumSepolia: process.env.ARBISCAN_API_KEY
+    },
     customChains: [
       {
         network: "arbitrumSepolia",

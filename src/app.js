@@ -1,6 +1,6 @@
 // Contract addresses - these will be updated after deployment
 let FAUCET_ADDRESS = "0x0000000000000000000000000000000000000000";
-let TOKEN_ADDRESS = "0x11c827df3674FDf70C13b111c376DD41B3993b29";
+let TOKEN_ADDRESS = "0x816955F1c7a4aA4fc0eD3aF6E0521B2cf52B8E31";
 let RELAYER_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 // Contract ABIs - these will be loaded from the artifacts directory
@@ -199,7 +199,7 @@ async function loadContractAbis() {
         
         // If no token address is set, use the Arbitrum Sepolia token address
         if (TOKEN_ADDRESS === "0x0000000000000000000000000000000000000000") {
-            TOKEN_ADDRESS = "0x11c827df3674FDf70C13b111c376DD41B3993b29"; // Arbitrum Sepolia token address
+            TOKEN_ADDRESS = "0x816955F1c7a4aA4fc0eD3aF6E0521B2cf52B8E31"; // Arbitrum Sepolia token address
         }
     } catch (error) {
         console.error('Error loading contract ABIs:', error);

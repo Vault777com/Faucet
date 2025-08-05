@@ -6,17 +6,17 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 /**
  * @title Faucet
- * @dev A faucet contract that dispenses ETH and DAI tokens
+ * @dev A faucet contract that dispenses ETH and 777 tokens
  */
 contract Faucet is Ownable {
-    // The token being dispensed (DAI)
+    // The token being dispensed (777)
     IERC20 public token;
     
     // Amount of ETH to dispense (in wei)
     uint256 public ethAmount = 0.1 ether;
     
     // Amount of tokens to dispense
-    uint256 public tokenAmount = 100 * 10**18; // 100 DAI with 18 decimals
+    uint256 public tokenAmount = 100 * 10**18; // 100 777 with 18 decimals
     
     // Cooldown period in seconds
     uint256 public cooldownPeriod = 24 hours;
@@ -29,7 +29,7 @@ contract Faucet is Ownable {
     
     /**
      * @dev Constructor sets the token address and owner
-     * @param _tokenAddress The address of the DAI token contract
+     * @param _tokenAddress The address of the 777 token contract
      */
     constructor(address _tokenAddress) Ownable(msg.sender) {
         token = IERC20(_tokenAddress);

@@ -64,9 +64,9 @@ async function displayContractVerification(address, element) {
         const isVerified = data.status === "1" && data.result !== "Contract source code not verified";
         
         if (isVerified) {
-            element.innerHTML = `<span class="verified">✓ Etherscan Verified</span> <a href="${etherscanUrl}" target="_blank">Review the contract on Etherscan</a>`;
+            element.innerHTML = `<span class="verified">✓ Etherscan Verified</span> <a href="${etherscanUrl}" target="_blank">Review the contract on Arbiscan</a>`;
         } else {
-            element.innerHTML = `<span class="unverified">⚠ Etherscan Unverified</span> <a href="${etherscanUrl}" target="_blank">Review the code on Etherscan</a>`;
+            element.innerHTML = `<span class="unverified">⚠ Etherscan Unverified</span> <a href="${etherscanUrl}" target="_blank">Review the code on Arbiscan</a>`;
         }
     } catch (error) {
         console.error("Error checking contract verification:", error);
@@ -120,7 +120,7 @@ async function init() {
 // Load contract ABIs and addresses from the artifacts directory
 async function loadContractAbis() {
     try {
-        // Use standard ERC20 ABI for DAI token
+        // Use standard ERC20 ABI for 777 token
         tokenAbi = [
             // ERC20 Standard Interface
             "function balanceOf(address owner) view returns (uint256)",
@@ -310,7 +310,7 @@ async function updateBalances() {
         if (tokenContract) {
             const decimals = await tokenContract.decimals();
             const tokenBalance = await tokenContract.balanceOf(userAddress);
-            tokenBalanceDisplay.textContent = `${ethers.utils.formatUnits(tokenBalance, decimals)} DAI`;
+            tokenBalanceDisplay.textContent = `${ethers.utils.formatUnits(tokenBalance, decimals)} 777`;
         }
     } catch (error) {
         console.error('Error updating balances:', error);

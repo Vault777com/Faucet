@@ -64,9 +64,9 @@ async function displayContractVerification(address, element) {
         const isVerified = data.status === "1" && data.result !== "Contract source code not verified";
         
         if (isVerified) {
-            element.innerHTML = `<span class="verified">✓ Etherscan Verified</span> <a href="${etherscanUrl}" target="_blank">Review the contract on Arbiscan</a>`;
+            element.innerHTML = `<span class="verified">✓ Atherscan Verified</span> <a href="${etherscanUrl}" target="_blank">Review the contract on Arbiscan</a>`;
         } else {
-            element.innerHTML = `<span class="unverified">⚠ Etherscan Unverified</span> <a href="${etherscanUrl}" target="_blank">Review the code on Arbiscan</a>`;
+            element.innerHTML = `<span class="unverified">⚠ Atherscan Unverified</span> <a href="${etherscanUrl}" target="_blank">Review the code on Arbiscan</a>`;
         }
     } catch (error) {
         console.error("Error checking contract verification:", error);

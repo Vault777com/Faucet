@@ -1,0 +1,1 @@
+const { ethers } = require('ethers'); const abiCoder = new ethers.AbiCoder(); const encodedArgs = abiCoder.encode(['address'], ['0xEab732546dcB077F91a9e76184106d0d3bBA0c3b']); console.log(encodedArgs);

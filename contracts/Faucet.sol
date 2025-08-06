@@ -27,6 +27,9 @@ contract Faucet is Ownable {
     // Event emitted when funds are dispensed
     event FundsDispensed(address indexed recipient, uint256 ethAmount, uint256 tokenAmount);
     
+    // Event emitted when token address is changed
+    event TokenAddressChanged(address indexed oldToken, address indexed newToken);
+    
     /**
      * @dev Constructor sets the token address and owner
      * @param _tokenAddress The address of the 777 token contract
@@ -138,6 +141,25 @@ function setRelayerStatus(address relayer, bool isAuthorized) external onlyOwner
      */
     function setCooldownPeriod(uint256 _cooldownPeriod) external onlyOwner {
         cooldownPeriod = _cooldownPeriod;
+    }
+    
+    /**
+     * @dev Update the token address (allows changing to a different ERC20 token)
+     * @param _tokenAddress The new token contract address
+     */
+    function setTokenAddress(address _tokenAddress) external onlyOwner {
+        require(_tokenAddress != address(0), "Token address cannot be zero");
+        address oldToken = address(token);
+        token = IERC20(_tokenAddress);
+        emit TokenAddressChanged(oldToken, _tokenAddress);
+    }
+    
+    /**
+     * @dev Get the current token address
+     * @return The address of the current token contract
+     */
+    function getTokenAddress() external view returns (address) {
+        return address(token);
     }
     
     /**

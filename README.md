@@ -1,10 +1,10 @@
-# Sepolia Testnet Faucet
+# VAULT777 Arbitrum Sepolia Testnet Faucet
 
 A decentralized application (dApp) that allows users to request test ETH + specific ERC20 tokens on the Sepolia Ethereum testnet.
 
 ## Features
 
-- Request 0.1 ETH and 100 ERC20 tokens
+- Request 0.1 ETH and 10,000 ERC20 777 tokens
 - 24-hour cooldown period between requests
 - MetaMask integration for wallet connection
 - Responsive UI for desktop and mobile devices
@@ -206,7 +206,7 @@ Note: The relayer service needs to be funded with ETH to pay for gas fees.
 ### Faucet.sol
 
 The main faucet contract that:
-- Dispenses 0.1 ETH and 100 ERC20 tokens to users
+- Dispenses 0.1 ETH and 10,000 ERC20 777 tokens to users
 - Enforces a 24-hour cooldown period between requests
 - Allows the owner to fund the contract with ETH
 - Allows anyone to deposit ERC20 tokens to the faucet

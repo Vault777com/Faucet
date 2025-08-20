@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAULT777 Faucet</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>VAULT777 Faucet</h1>
+            <p class="subtitle">Get 0.1 ETH and 10000 $777 tokens for testing on Arbitrum Sepolia</p>
+        </header>
+
+        <div class="wallet-section">
+            <h2>Connect Your Wallet</h2>
+            <div id="wallet-status" class="status not-connected">Not Connected</div>
+            <button id="connect-wallet" class="btn primary">Connect Wallet</button>
+            <div id="wallet-address" class="address-display"></div>
+        </div>
+
+        <div class="faucet-section">
+            <h2>Request Funds</h2>
+            <p>You can request 0.1 ETH and 10000 $777 tokens once every 24 hours.</p>
+            
+            <div class="balance-display">
+                <div class="balance-item">
+                    <span class="balance-label">ETH Balance:</span>
+                    <span id="eth-balance" class="balance-value">-</span>
+                </div>
+                <div class="balance-item">
+                    <span class="balance-label">$777 Balance:</span>
+                    <span id="token-balance" class="balance-value">-</span>
+                </div>
+            </div>
+            
+            <div class="request-options">
+                <button id="request-funds" class="btn primary" disabled>Request Funds</button>
+                <div class="meta-tx-section">
+                    <p class="meta-tx-info">No ETH for gas? Use a meta-transaction:</p>
+                    <button id="request-via-relayer" class="btn secondary" disabled>Request via Relayer</button>
+                </div>
+            </div>
+            
+            <div id="cooldown-info" class="cooldown-info hidden">
+                <p>You can request funds again in: <span id="cooldown-time">-</span></p>
+            </div>
+        </div>
+
+        <div id="transaction-status" class="transaction-status hidden">
+            <div class="spinner"></div>
+            <p id="status-message">Processing transaction...</p>
+        </div>
+
+        <div class="contract-info">
+            <h3>Contract Information</h3>
+            <div class="info-item">
+                <span class="info-label">Network:</span>
+                <span class="info-value">Arbitrum Sepolia Testnet</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Faucet Contract:</span>
+                <span id="faucet-address" class="info-value">-</span>
+                <span id="faucet-verified" class="verification-status"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Token Contract:</span>
+                <span id="token-address" class="info-value">-</span>
+                <span id="token-verified" class="verification-status"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Relayer Contract:</span>
+                <span id="relayer-address" class="info-value">-</span>
+                <span id="relayer-verified" class="verification-status"></span>
+            </div>
+        </div>
+
+        <footer>
+            <p>This faucet is for testing purposes only. The ETH and tokens have no real value.</p>
+            <p>©2025 VAULT777 Faucet</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

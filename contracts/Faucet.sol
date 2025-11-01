@@ -38,53 +38,46 @@ contract Faucet is Ownable {
         token = IERC20(_tokenAddress);
     }
     
-/**
- * @dev Request ETH and tokens from the faucet
- */
-function requestFunds() external {
-    _requestFunds(msg.sender);
-}
+    /**
+     * @dev Request funds for a specific address (can only be called by authorized relayers)
+     * @param recipient The address to receive the funds
+     */
+    function requestFundsFor(address recipient) external {
+        // Only authorized relayers can call this function
+        require(authorizedRelayers[msg.sender], "Not an authorized relayer");
+        _requestFunds(recipient);
+    }
 
-/**
- * @dev Request funds for a specific address (can only be called by authorized relayers)
- * @param recipient The address to receive the funds
- */
-function requestFundsFor(address recipient) external {
-    // Only authorized relayers can call this function
-    require(authorizedRelayers[msg.sender], "Not an authorized relayer");
-    _requestFunds(recipient);
-}
+    /**
+     * @dev Internal function to handle fund requests
+     * @param recipient The address to receive the funds
+     */
+    function _requestFunds(address recipient) internal {
+        // Check if the cooldown period has passed
+        require(
+            block.timestamp >= lastRequestTime[recipient] + cooldownPeriod || lastRequestTime[recipient] == 0,
+            "Cooldown period not over"
+        );
 
-/**
- * @dev Internal function to handle fund requests
- * @param recipient The address to receive the funds
- */
-function _requestFunds(address recipient) internal {
-    // Check if the cooldown period has passed
-    require(
-        block.timestamp >= lastRequestTime[recipient] + cooldownPeriod || lastRequestTime[recipient] == 0,
-        "Cooldown period not over"
-    );
-    
-    // Check if the contract has enough ETH
-    require(address(this).balance >= ethAmount, "Insufficient ETH in faucet");
-    
-    // Check if the contract has enough tokens
-    require(token.balanceOf(address(this)) >= tokenAmount, "Insufficient tokens in faucet");
-    
-    // Update the last request time
-    lastRequestTime[recipient] = block.timestamp;
-    
-    // Transfer ETH to the recipient
-    (bool sent, ) = recipient.call{value: ethAmount}("");
-    require(sent, "Failed to send ETH");
-    
-    // Transfer tokens to the recipient
-    require(token.transfer(recipient, tokenAmount), "Failed to transfer tokens");
-    
-    // Emit event
-    emit FundsDispensed(recipient, ethAmount, tokenAmount);
-}
+        // Check if the contract has enough ETH
+        require(address(this).balance >= ethAmount, "Insufficient ETH in faucet");
+        
+        // Check if the contract has enough tokens
+        require(token.balanceOf(address(this)) >= tokenAmount, "Insufficient tokens in faucet");
+        
+        // Update the last request time
+        lastRequestTime[recipient] = block.timestamp;
+        
+        // Transfer ETH to the recipient
+        (bool sent, ) = recipient.call{value: ethAmount}("");
+        require(sent, "Failed to send ETH");
+        
+        // Transfer tokens to the recipient
+        require(token.transfer(recipient, tokenAmount), "Failed to transfer tokens");
+        
+        // Emit event
+        emit FundsDispensed(recipient, ethAmount, tokenAmount);
+    }
     
     /**
      * @dev Allow the owner to fund the contract with ETH
@@ -102,22 +95,22 @@ function _requestFunds(address recipient) internal {
         (bool sent, ) = owner().call{value: amount}("");
         require(sent, "Failed to send ETH");
     }
-    
-// Mapping of authorized relayers
-mapping(address => bool) public authorizedRelayers;
+        
+    // Mapping of authorized relayers
+    mapping(address => bool) public authorizedRelayers;
 
-// Event emitted when a relayer is added or removed
-event RelayerStatusChanged(address indexed relayer, bool isAuthorized);
+    // Event emitted when a relayer is added or removed
+    event RelayerStatusChanged(address indexed relayer, bool isAuthorized);
 
-/**
- * @dev Add or remove an authorized relayer
- * @param relayer The address of the relayer
- * @param isAuthorized Whether the relayer is authorized
- */
-function setRelayerStatus(address relayer, bool isAuthorized) external onlyOwner {
-    authorizedRelayers[relayer] = isAuthorized;
-    emit RelayerStatusChanged(relayer, isAuthorized);
-}
+    /**
+     * @dev Add or remove an authorized relayer
+     * @param relayer The address of the relayer
+     * @param isAuthorized Whether the relayer is authorized
+     */
+    function setRelayerStatus(address relayer, bool isAuthorized) external onlyOwner {
+        authorizedRelayers[relayer] = isAuthorized;
+        emit RelayerStatusChanged(relayer, isAuthorized);
+    }
     
     /**
      * @dev Update the token amount to be dispensed

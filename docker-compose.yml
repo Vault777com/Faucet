@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  relayer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: faucet-relayer
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - HARDHAT_NETWORK=arbitrumSepolia
+      - PORT=3000
+      - ARBITRUM_MAINNET_RPC=${ARBITRUM_MAINNET_RPC:-https://arb1.arbitrum.io/rpc}
+      - SEPOLIA_URL=${SEPOLIA_URL}
+      - PRIVATE_KEY=${PRIVATE_KEY}
+      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
+      - ARBISCAN_API_KEY=${ARBISCAN_API_KEY}
+    volumes:
+      - ./src/contract-addresses.json:/app/src/contract-addresses.json:ro
+      - ./src/artifacts:/app/src/artifacts:ro
+    networks:
+      - faucet-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/execute"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    command: ["npm", "run", "relayer"]
+
+  telegram-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: faucet-telegram-bot
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - HARDHAT_NETWORK=arbitrumSepolia
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DATABASE_URL=${DATABASE_URL}
+      - SEPOLIA_URL=${SEPOLIA_URL}
+      - PRIVATE_KEY=${PRIVATE_KEY}
+      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
+      - ARBISCAN_API_KEY=${ARBISCAN_API_KEY}
+    volumes:
+      - ./src/artifacts:/app/src/artifacts:ro
+    networks:
+      - faucet-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('Bot health check')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    command: ["npm", "run", "relayer:telegram"]
+
+networks:
+  faucet-network:
+    driver: bridge

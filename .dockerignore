@@ -1,0 +1,72 @@
+# Node modules
+node_modules
+npm-debug.log*
+
+# Git
+.git
+.gitignore
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Hardhat files
+cache
+artifacts
+typechain-types
+
+# Test files
+test
+
+# Documentation
+README.md
+README-TOKEN-UPGRADE.md
+DEPLOYMENT.md
+
+# Docker files
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Solidity files (contracts are compiled in build)
+contracts
+*.sol
+
+# Hardhat config
+hardhat.config.cjs
+
+# Scripts not needed in production
+scripts/deploy_*.js
+scripts/authorize_*.js
+scripts/change_*.js
+scripts/check_*.js
+scripts/deposit-*.js
+scripts/save-*.js
+scripts/serve-frontend.js
+
+# Frontend files (if not needed in container)
+src/index.html
+src/styles.css
+src/app.js
+
+# Temporary files
+tmp
+temp

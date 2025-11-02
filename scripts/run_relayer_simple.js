@@ -1,11 +1,16 @@
 // Simplified script to run a relayer service for meta-transactions
 
-const hre = require("hardhat");
-const fs = require("fs");
-const path = require("path");
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+import hre from "hardhat";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Configuration
 const PORT = process.env.PORT || 3001;

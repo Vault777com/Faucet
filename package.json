@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Arbitrum Sepolia Testnet Faucet for ETH and 777 tokens",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "hardhat test",
     "compile": "hardhat compile",

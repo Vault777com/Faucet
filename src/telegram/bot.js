@@ -56,7 +56,7 @@ class FaucetDatabase {
         )
     }
 }
-const API_KEY = '8228094262:AAFvnC45dIiOy8cq0Iem5WIdFfgk7j50jeA'
+const API_KEY = process.env.TELEGRAM_BOT_TOKEN
 
 const db = new FaucetDatabase('postgres://postgres:postgres@localhost:5433/casino_faucet??sslmode=disable=disabled')
 const bot = new Bot(API_KEY);

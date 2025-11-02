@@ -58,7 +58,7 @@ class FaucetDatabase {
 }
 const API_KEY = process.env.TELEGRAM_BOT_TOKEN
 
-const db = new FaucetDatabase('postgres://postgres:postgres@localhost:5433/casino_faucet??sslmode=disable=disabled')
+const db = new FaucetDatabase(process.env.DATABASE_URL || 'postgres://postgres:postgres@localhost:5433/casino_faucet?sslmode=disable')
 const bot = new Bot(API_KEY);
 
 bot.command('start', async (ctx) => {

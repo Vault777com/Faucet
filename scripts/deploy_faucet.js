@@ -2,7 +2,7 @@ const hre = require("hardhat");
 const saveAddresses = require("./save-addresses");
 
 // Get the token address from environment variable or use default
-const TOKEN_ADDRESS = process.env.TOKEN_ADDRESS || "0x415f2e4e40cE6620CEf1F2fA0888b4acdc373Dd5";
+const TOKEN_ADDRESS = process.env.TOKEN_ADDRESS || "0xD9bDD5f7FA4B52A2F583864A3934DC7233af2d09";
 
 async function main() {
   console.log("Starting deployment process...");

@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 
 // Configuration
 const PORT = process.env.PORT || 3001;
+const ARBITRUM_MAINNET_RPC = process.env.ARBITRUM_MAINNET_RPC || 'https://arb1.arbitrum.io/rpc'
 
 async function main() {
   console.log("Starting simplified relayer service...");
@@ -28,6 +29,8 @@ async function main() {
     console.error("Relayer address not found or invalid. Deploy the FaucetRelayer contract first.");
     process.exit(1);
   }
+  // setup arbitrum mainnet provider
+  const arbitrumProvider = new hre.ethers.JsonRpcProvider(ARBITRUM_MAINNET_RPC)
 
   // Get the signer (relayer account)
   const [relayer] = await hre.ethers.getSigners();
@@ -58,6 +61,13 @@ async function main() {
       }
 
       console.log(`Received meta-transaction request from ${userAddress} with nonce ${nonce}`);
+
+      //validate mainnet balance
+      const balance = await arbitrumProvider.getBalance(userAddress);
+      if(balance <= hre.ethers.parseEther('0.01') ){ 
+        console.log(`[invalid]: account ${userAddress} does not have sufficient arbitrum balance, likely spam.`)
+        return res.status(400).json({error: "Insufficient balance"})
+      }
 
       try {
         // Convert nonce to BigNumber safely

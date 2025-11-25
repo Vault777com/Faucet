@@ -66,7 +66,7 @@ async function main() {
       const balance = await arbitrumProvider.getBalance(userAddress);
       if(balance <= hre.ethers.parseEther('0.01') ){ 
         console.log(`[invalid]: account ${userAddress} does not have sufficient arbitrum balance, likely spam.`)
-        return res.status(400).json({error: "Insufficient balance"})
+        return res.status(400).json({error: "You must hold at least 0.01 ETH on Arbitrum Mainnet to request faucet tokens."})
       }
 
       try {
